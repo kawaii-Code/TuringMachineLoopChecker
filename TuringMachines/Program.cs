@@ -40,6 +40,13 @@ public static class Program
         Console.ResetColor();
     }
 
+    private static void PrintError(string message)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("ERROR: " + message);
+        Console.ResetColor();
+    }
+
     private static ITuringMachine ReadLoopedTuringMachine()
     {
         int q = Input.Read<int>("Q: ");
@@ -58,8 +65,20 @@ public static class Program
     public static void Main()
     {
         Intro();
-        ITuringMachine turingMachine = ReadLoopedTuringMachine();
+        
+        ITuringMachine turingMachine = null!; // ?!?
+        try
+        {
+            turingMachine = ReadLoopedTuringMachine();
+        }
+        catch (Exception exception)
+        {
+            PrintError(exception.Message);
+            Main();
+        }
+        
         TuringMachineLoopChecker loopChecker = new(turingMachine);
+        
         try
         {
             Console.WriteLine(loopChecker.IsLooped()
@@ -68,16 +87,14 @@ public static class Program
         }
         catch (Exception exception)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("ERROR: " + exception.Message);
-            Console.ResetColor();
+            PrintError(exception.Message);
             Main();
         }
     }
 
     private static Dictionary<string, TuringMachineState> ParseStates(int q, IEnumerable<string> strings)
     {
-        Dictionary<string, TuringMachineStateBuilder> builders = new(q)
+        Dictionary<string, TuringMachineStateBuilder> builders = new(q + 1)
         {
             { "q0", new TuringMachineStateBuilder("q0") }
         };
