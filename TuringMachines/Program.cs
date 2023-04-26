@@ -63,8 +63,8 @@ public static class Program
         try
         {
             Console.WriteLine(loopChecker.IsLooped()
-                ? "This turing machine will loop."
-                : "This turing machine works fine.");
+                ? "Not OK"
+                : "OK");
         }
         catch (Exception exception)
         {
