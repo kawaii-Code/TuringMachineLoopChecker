@@ -1,14 +1,12 @@
-﻿using TuringMachines.TuringMachine;
-
-namespace TuringMachines;
+﻿namespace TuringMachines;
 
 public struct TuringMachineInfo
 {
     public string State;
-    public Tape Tape;
+    public string Tape;
     public int Position;
 
-    public TuringMachineInfo(string state, Tape tape, int position)
+    public TuringMachineInfo(string state, string tape, int position)
     {
         State = state;
         Tape = tape;

@@ -16,7 +16,7 @@ public class TuringMachineLoopChecker
     {
         while (_target.Next())
         {
-            TuringMachineInfo currentInfo = new(_target.CurrentState.Name, _target.Tape, _target.Position);
+            TuringMachineInfo currentInfo = new(_target.CurrentState.Name, _target.Tape.AsString(), _target.Position);
             if (!_previousStates.Add(currentInfo))
                 return true;
         }
