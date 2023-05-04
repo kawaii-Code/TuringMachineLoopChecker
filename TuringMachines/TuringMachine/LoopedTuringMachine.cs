@@ -37,7 +37,12 @@ public class LoopedTuringMachine : ITuringMachine
 
     private void ShiftPosition(int shift)
     {
-        Position = (Position + shift) % Tape.Length;
+        Position += shift;
+        
+        if (Position == Tape.Length)
+            Position = 0;
+        else if (Position < 0)
+            Position = Tape.Length - 1;
     }
 
     private void TransitionTo(string transitionTo)
